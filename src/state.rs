@@ -9,6 +9,7 @@ pub struct Kullanici{
 
 #[derive(BorshSerialize, BorshDeserialize, Debug, Clone, PartialEq)]
 pub struct Fon{
+    pub isinit: u8 ,
     pub miktar:u64, //8byte
     pub kilitacmazamani: u64, // UNIX timestamp 8byte
     pub kullaniciowner: [u8;32],
