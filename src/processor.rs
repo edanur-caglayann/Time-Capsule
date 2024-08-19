@@ -75,9 +75,15 @@ impl Processor {
         let payer = next_account_info(accounts_iter)?; // Kullanıcı cüzdan hesap bilgileri
         let kilitli_fon_cuzdan_hesap = next_account_info(accounts_iter)?; // Kilitli fon cüzdan hesap bilgileri
     
+        let kontrol = Fon::try_from_slice(&kilitli_fon_cuzdan_hesap.data.borrow())?; 
+
         // Kullanıcı imzasını kontrol edelim
         if !payer.is_signer {
             return Err(ProgramError::MissingRequiredSignature);
+        }
+
+        if kontrol.isinit != 1 {
+          msg!("Kilitli fona yazildi.")
         }
         // kullanıcı hesabı payere ait mi
         let kullanici_okuma = Kullanici::try_from_slice(&kullanici_hesap.data.borrow())?;
@@ -91,15 +97,15 @@ impl Processor {
           miktar: islemler2.miktar,
           kilitacmazamani: islemler2.kilitacmazamani,
           kullaniciowner: payer.key.to_bytes(),
+          isinit: 1
 
         };
-        msg!("8");
+
 
         // Kullanıcının cüzdan hesabından(payer) kilitli fon cüzdan hesabına fon transferi
         **kullanici_hesap.try_borrow_mut_lamports()? -= islemler2.miktar;
-        **kilitli_fon_cuzdan_hesap.try_borrow_mut_lamports()? = islemler2.miktar;
-
-    
+        **kilitli_fon_cuzdan_hesap.try_borrow_mut_lamports()? += islemler2.miktar;
+        
         // Kilitli fon bilgilerini kilitli fon cüzdan hesabına yazalım
         kilitli_fon_cuzdan_hesap_data.serialize(&mut &mut kilitli_fon_cuzdan_hesap.data.borrow_mut()[..])?;
     

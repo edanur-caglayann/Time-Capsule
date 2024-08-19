@@ -25,16 +25,20 @@ export const KullaniciSchema = new Map([
 
 
 export class Fon {
+  isinit: number =0;
   miktar: bigint;
   kilitacmazamani: bigint;
-  Kullaniciadres:Uint8Array = new Uint8Array(32);
+  kullaniciowner:Uint8Array = new Uint8Array(32);
+  
 
 
-  constructor(fields: { miktar: bigint; kilitacmazamani: bigint; Kullaniciadres: Uint8Array} | undefined = undefined) {
+  constructor(fields: { isinit:number; miktar: bigint; kilitacmazamani: bigint; kullaniciowner: Uint8Array; } | undefined = undefined) {
     if (fields) {
+      this.isinit = fields.isinit;
       this.miktar = fields.miktar;
       this.kilitacmazamani = fields.kilitacmazamani;
-      this.Kullaniciadres = fields.Kullaniciadres;
+      this.kullaniciowner = fields.kullaniciowner;
+     
     } else {
       this.miktar = BigInt(0);
       this.kilitacmazamani = BigInt(0);
@@ -47,9 +51,10 @@ export const FonSchema = new Map([
   [Fon, {
     kind: 'struct',
     fields: [
+      ['isinit', 'u8'],
       ['miktar', 'u64'],
       ['kilitacmazamani', 'u64'],
-      ["Kullaniciadres", ["u8", 32]],
+      ["kullaniciowner", ["u8", 32]],
     ],
   }],
 ]);
