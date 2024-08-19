@@ -9,6 +9,6 @@ Fon Kilitleme: Transfer edilen fonlar, kullanıcının belirlediği süre boyunc
 Fon Çekme: Kullanıcılar, kilitli süre dolduğunda fonlarını kilitli fon hesaplarından çekebilirler. Süre dolmadan fon çekilmesine izin verilmez.
 Fonksiyonlar
 kullanici_olustur(): Yeni bir kullanıcı hesabı oluşturur.
-kilitli_fon_cuzdab_hesabi_olustur(): Kullanıcı için bir kilitli fon hesabı oluşturur.
+kilitli_fon_cuzdan_hesabi_olustur(): Kullanıcı için bir kilitli fon hesabı oluşturur.
 fon_transferi(miktar: bigint): Kullanıcıdan kilitli fon hesabına belirtilen miktarda fon transfer eder.
 fon_cekme(): Kilit süresi dolduğunda fonların kilitli fon hesabından çekilmesini sağlar. Eğer süre dolmadıysa, fon çekme işlemi başarısız olur.
