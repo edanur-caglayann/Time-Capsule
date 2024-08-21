@@ -2,12 +2,12 @@
 import { serialize, deserialize, Schema } from "borsh";
 
 export class Kullanici { 
-  isim: string = "";
+  yas: number = 0;
   Kullaniciadres: Uint8Array = new Uint8Array(32);
 
-  constructor(fields: { isim: string; Kullaniciadres: Uint8Array } | undefined = undefined) {
+  constructor(fields: { yas: number; Kullaniciadres: Uint8Array } | undefined = undefined) {
     if (fields) {
-      this.isim = fields.isim;
+      this.yas = fields.yas;
       this.Kullaniciadres = fields.Kullaniciadres;
     }
   }
@@ -17,7 +17,7 @@ export const KullaniciSchema = new Map([
   [Kullanici, {
     kind: "struct",
     fields: [
-      ["isim", "string"],
+      ["yas", "u8"],
       ["Kullaniciadres", ["u8", 32]],
     ]
   }]
@@ -26,24 +26,20 @@ export const KullaniciSchema = new Map([
 
 export class Fon {
   isinit: number =0;
-  miktar: bigint;
-  kilitacmazamani: bigint;
+  miktar: number = 0;
+  kilitacmazamani: number = 0;
   kullaniciowner:Uint8Array = new Uint8Array(32);
   
 
 
-  constructor(fields: { isinit:number; miktar: bigint; kilitacmazamani: bigint; kullaniciowner: Uint8Array; } | undefined = undefined) {
+  constructor(fields: { isinit:number; miktar: number; kilitacmazamani: number; kullaniciowner: Uint8Array; } | undefined = undefined) {
     if (fields) {
       this.isinit = fields.isinit;
       this.miktar = fields.miktar;
       this.kilitacmazamani = fields.kilitacmazamani;
       this.kullaniciowner = fields.kullaniciowner;
      
-    } else {
-      this.miktar = BigInt(0);
-      this.kilitacmazamani = BigInt(0);
-      
-    }
+    } 
   }
 }
 

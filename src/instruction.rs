@@ -5,6 +5,7 @@ use solana_program::{msg, program_error::ProgramError};
 #[derive(Debug, PartialEq)]
 pub enum RNGProgramInstruction { 
 KullaniciIslemleri{data:Kullanici},
+KilitliHesapIslemleri{data:Fon},
 FonTransferIslemi{data:Fon},
 FonCekmeIslemi,
 }
@@ -22,10 +23,13 @@ impl RNGProgramInstruction {
         0=> Self::KullaniciIslemleri{
           data:Kullanici::try_from_slice(&rest)?
         },
-        1=> Self::FonTransferIslemi{
+        1=> Self::KilitliHesapIslemleri {
+          data:Fon:: try_from_slice(&rest)?
+        },
+        2=> Self::FonTransferIslemi{
           data:Fon::try_from_slice(&rest)?
         },
-        2=> Self::FonCekmeIslemi,
+        3=> Self::FonCekmeIslemi,
   
         _ => return Err(InvalidInstruction.into()),
       })
