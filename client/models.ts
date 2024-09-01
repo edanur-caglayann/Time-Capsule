@@ -1,93 +1,93 @@
 
 import { serialize, deserialize, Schema } from "borsh";
 
-export class Kullanici { 
-  isim: string = "";
-  Kullaniciadres: Uint8Array = new Uint8Array(32);
+export class User { 
+  name: string = "";
+  useraddress: Uint8Array = new Uint8Array(32);
 
-  constructor(fields: { isim: string; Kullaniciadres: Uint8Array } | undefined = undefined) {
+  constructor(fields: { name: string; useraddress: Uint8Array } | undefined = undefined) {
     if (fields) {
-      this.isim = fields.isim;
-      this.Kullaniciadres = fields.Kullaniciadres;
+      this.name = fields.name;
+      this.useraddress = fields.useraddress;
     }
   }
 }
 
-export const KullaniciSchema = new Map([
-  [Kullanici, {
+export const UserSchema = new Map([
+  [User, {
     kind: "struct",
     fields: [
-      ["isim", "string"],
-      ["Kullaniciadres", ["u8", 32]],
+      ["name", "string"],
+      ["useraddress", ["u8", 32]],
     ]
   }]
 ]);
 
 
-export class Fon {
+export class Fund {
   isinit: number =0;
-  miktar: bigint;
-  kilitacmazamani: bigint;
-  kullaniciowner:Uint8Array = new Uint8Array(32);
+  amount: bigint;
+  unlocktime: bigint;
+  userowner:Uint8Array = new Uint8Array(32);
   
 
 
-  constructor(fields: { isinit:number; miktar: bigint; kilitacmazamani: bigint; kullaniciowner: Uint8Array; } | undefined = undefined) {
+  constructor(fields: { isinit:number; amount: bigint; unlocktime: bigint; userowner: Uint8Array; } | undefined = undefined) {
     if (fields) {
       this.isinit = fields.isinit;
-      this.miktar = fields.miktar;
-      this.kilitacmazamani = fields.kilitacmazamani;
-      this.kullaniciowner = fields.kullaniciowner;
+      this.amount = fields.amount;
+      this.unlocktime = fields.unlocktime;
+      this.userowner = fields.userowner;
      
     } else {
-      this.miktar = BigInt(0);
-      this.kilitacmazamani = BigInt(0);
+      this.amount = BigInt(0);
+      this.unlocktime = BigInt(0);
       
     }
   }
 }
 
-export const FonSchema = new Map([
-  [Fon, {
+export const FundSchema = new Map([
+  [Fund, {
     kind: 'struct',
     fields: [
       ['isinit', 'u8'],
-      ['miktar', 'u64'],
-      ['kilitacmazamani', 'u64'],
-      ["kullaniciowner", ["u8", 32]],
+      ['amount', 'u64'],
+      ['unlocktime', 'u64'],
+      ["userowner", ["u8", 32]],
     ],
   }],
 ]);
 
-export class Okuma {
-  miktar: bigint = BigInt(0);
+export class Read {
+  amount: bigint = BigInt(0);
 
-  constructor(fields: { miktar: bigint; } | undefined = undefined) {
+  constructor(fields: { amount: bigint; } | undefined = undefined) {
     if (fields) {
-      this.miktar = fields.miktar;
+      this.amount = fields.amount;
       
     } 
   }
 }
 
-export const OkumaSchema = new Map([
-  [Okuma, {
+export const ReadSchema = new Map([
+  [Read, {
     kind: 'struct',
     fields: [
-      ['miktar', 'u64'],
+      ['amount', 'u64'],
     ],
   }],
 ]);
 
 
 export class Transfer {
-  miktar: bigint = BigInt(0);
-  kilitacmazamani: bigint = BigInt(0);
+  amount: bigint = BigInt(0);
+  unlocktime: bigint = BigInt(0);
 
-  constructor(fields: { miktar: bigint; kilitacmazamani: bigint } | undefined = undefined) {
+  constructor(fields: { amount: bigint; unlocktime: bigint } | undefined = undefined) {
     if (fields) {
-      this.miktar = fields.miktar;
-      this.kilitacmazamani = fields.kilitacmazamani;
+      this.amount = fields.amount;
+      this.unlocktime = fields.unlocktime;
     } 
   }
 }
@@ -96,17 +96,10 @@ export const TransferSchema = new Map([
   [Transfer, {
     kind: 'struct',
     fields: [
-      ['miktar', 'u64'],
-      ['kilitacmazamani', 'u64'],
+      ['amount', 'u64'],
+      ['unlocktime', 'u64'],
     ],
   }],
 ]);
 
-    /*
-  BigInt, JavaScript'te 2^53-1'den büyük 
-  tamsayıları temsil etmek için kullanılan bir veri türüdür.
-  Number veri türünün(2^53-1 aralığı) sınır aralığını aşan daha büyük
-  tamsayılar için BigInt kullanılır.
-    */
-  
   
